@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TruthLens : Fake News Prediction</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5m14 14H5" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold text-slate-900">TruthLens</h1>
+            <p class="text-xs text-slate-500">AI Powered News Verification</p>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium ml-auto">
+          <a href="/" class="hover:text-blue-600 transition">Home</a>
+          <a href="/predictions" class="text-blue-600 font-semibold">Prediction</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Left Panel -->
+      <section>
+        <span class="inline-block px-4 py-2 mb-5 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+          AI Prediction Workspace
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
+          Check if a News Article is <span class="text-blue-600">Fake or Real</span>
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-10">
+          Paste the headline or full news content below. Our trained machine learning model will instantly analyze the text and provide a prediction.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-200">
+            <p class="text-sm text-slate-500">Model Accuracy</p>
+            <h3 class="text-3xl font-bold text-slate-900 mt-2">95%</h3>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-200">
+            <p class="text-sm text-slate-500">Avg. Response</p>
+            <h3 class="text-3xl font-bold text-slate-900 mt-2">1.2s</h3>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-200">
+            <p class="text-sm text-slate-500">Articles Checked</p>
+            <h3 class="text-3xl font-bold text-slate-900 mt-2">10K+</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prediction Form -->
+      <section class="bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 lg:p-10">
+        <div class="mb-8">
+          <h3 class="text-2xl font-bold text-slate-900">News Prediction</h3>
+          <p class="text-slate-500 mt-2">Enter article details for instant analysis.</p>
+        </div>
+
+        <form class="space-y-6" action="{{ url_for('predictions') }}" method="POST">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">News Headline</label>
+            <input
+              type="text"
+              name="news"
+              placeholder="Enter the news headline..."
+              value="{{ news_text if news_text else '' }}"
+              class="w-full px-5 py-4 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              required
+            />
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              type="submit"
+              class="flex-1 px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+            >
+              Predict Now
+            </button>
+            <button
+              type="reset"
+              class="px-6 py-4 rounded-2xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 transition"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+
+        <!-- Result Card -->
+        <div class="mt-10 rounded-3xl p-6 shadow-sm border
+          {% if prediction_text == 'Real News' %}
+            bg-green-50 border-green-200
+          {% elif prediction_text == 'Fake News' %}
+            bg-red-50 border-red-200
+          {% elif prediction_text %}
+            bg-yellow-50 border-yellow-200
+          {% else %}
+            bg-slate-50 border-slate-200
+          {% endif %}
+        ">
+          <p class="text-sm font-medium text-slate-500">Latest Prediction</p>
+
+          {% if prediction_text %}
+            <div class="flex items-center justify-between mt-4">
+              <div>
+                <h4 class="text-2xl font-bold
+                  {% if prediction_text == 'Real News' %}
+                    text-green-600
+                  {% elif prediction_text == 'Fake News' %}
+                    text-red-600
+                  {% else %}
+                    text-yellow-700
+                  {% endif %}
+                ">
+                  {{ prediction_text }}
+                </h4>
+
+                {% if news_text %}
+                  <p class="text-slate-600 mt-2 break-words">{{ news_text }}</p>
+                {% endif %}
+              </div>
+
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center
+                {% if prediction_text == 'Real News' %}
+                  bg-green-100
+                {% elif prediction_text == 'Fake News' %}
+                  bg-red-100
+                {% else %}
+                  bg-yellow-100
+                {% endif %}
+              ">
+                {% if prediction_text == 'Real News' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                {% elif prediction_text == 'Fake News' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M10.29 3.86l-8.13 14.08A2 2 0 004.03 21h15.94a2 2 0 001.73-3.06L13.71 3.86a2 2 0 00-3.42 0z" />
+                  </svg>
+                {% endif %}
+              </div>
+            </div>
+          {% else %}
+            <p class="mt-2 text-slate-500">Your prediction will appear here after you submit a headline.</p>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 bg-white border-t border-slate-200 mt-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      <span class="inline-block px-4 py-2 mb-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-full">
+        What Users Say
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-14">Trusted by Students, Readers & Researchers</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-slate-50 p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300">
+          <p class="text-slate-600 mb-6">“This platform helped me verify articles for my college research. The results are quick and very accurate.”</p>
+          <h4 class="font-semibold text-slate-900">Aarav Sharma</h4>
+          <span class="text-sm text-slate-500">Student</span>
+        </div>
+
+        <div class="bg-slate-50 p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300">
+          <p class="text-slate-600 mb-6">“The interface is modern and simple. I use it daily to cross-check trending news online.”</p>
+          <h4 class="font-semibold text-slate-900">Priya Mehta</h4>
+          <span class="text-sm text-slate-500">Content Creator</span>
+        </div>
+
+        <div class="bg-slate-50 p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300">
+          <p class="text-slate-600 mb-6">“A powerful tool for identifying misinformation. The dashboard feels professional and easy to use.”</p>
+          <h4 class="font-semibold text-slate-900">Rohan Verma</h4>
+          <span class="text-sm text-slate-500">Research Analyst</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300 py-14">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid md:grid-cols-3 gap-10">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-4">Fake News Detection</h3>
+          <p class="text-slate-400 leading-relaxed">
+            AI-powered platform for checking news authenticity, improving trust, and reducing misinformation online.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/" class="hover:text-white transition">Home</a></li>
+            <li><a href="/predictions" class="hover:text-white transition">Predictions</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-slate-800 text-center text-sm text-slate-500">
+        <p>© 2026 Fake News Detection.</p>
+        <p class="mt-1">All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
