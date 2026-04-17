@@ -331,7 +331,13 @@ As misinformation continues to evolve, tools like TruthLens will play a crucial 
 
 <img width="1335" height="625" alt="home" src="https://github.com/user-attachments/assets/af7097da-336c-4d27-84d4-af7ff27dcbb5" />
 
+<img width="1338" height="629" alt="home1" src="https://github.com/user-attachments/assets/60140e30-e4b9-44b8-8879-1e4d1f7bc888" />
 
+<img width="1336" height="609" alt="prediction" src="https://github.com/user-attachments/assets/7981517e-05a8-4b4d-a853-4adc76421498" />
+
+<img width="1299" height="625" alt="Screenshot (1020)" src="https://github.com/user-attachments/assets/7f919bea-950d-4f7c-a575-f2165c1e3c4f" />
+
+<img width="1299" height="609" alt="Screenshot (1021)" src="https://github.com/user-attachments/assets/be8619ea-313f-423f-a6e7-1db9d0e2ac30" />
 
 
 **TruthLens — See the truth clearly.**
