@@ -327,6 +327,11 @@ As misinformation continues to evolve, tools like TruthLens will play a crucial 
 
 ---
 
+## 16 . Output
+
+<img width="1335" height="625" alt="home" src="https://github.com/user-attachments/assets/af7097da-336c-4d27-84d4-af7ff27dcbb5" />
+
+
 
 
 **TruthLens — See the truth clearly.**
