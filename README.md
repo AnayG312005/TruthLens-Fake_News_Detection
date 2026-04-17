@@ -149,8 +149,6 @@ The workflow of TruthLens can be described step-by-step:
 The model is trained on datasets containing labeled news articles categorized as real or fake. These datasets may include:
 
 * News headlines
-* Full articles
-* Metadata
 
 ### 7.2 Data Preprocessing
 
@@ -255,8 +253,8 @@ The system can be improved by adding:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-repo/truthlens.git
-cd truthlens
+git clone [https://github.com/AnayG312005/TruthLens-Fake_News_Detection.git]
+cd fake_news_detection
 ```
 
 ### Step 2: Create Virtual Environment
