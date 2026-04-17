@@ -8,6 +8,8 @@ TruthLens leverages machine learning techniques to analyze textual data and dete
 
 This project combines the power of **Python**, **Machine Learning**, **Flask**, and **modern frontend technologies like Tailwind CSS** to create a seamless and visually appealing experience. The goal is not only to provide accurate predictions but also to promote awareness and critical thinking among users when consuming online information.
 
+DataSet Link = https://drive.google.com/file/d/1zEuTafZnUuENFdImUdqrwdTOLZFjRanz/view
+
 ---
 
 ## 2. Objectives
